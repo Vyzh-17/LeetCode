@@ -1,34 +1,35 @@
 class Solution {
     public int sumFourDivisors(int[] nums) {
         int totalSum = 0;
-
-        for (int num : nums) {
+        
+        for (int n : nums) {
             int count = 0;
-            int sum = 0;
-
-            for (int i = 1; i * i <= num; i++) {
-                if (num % i == 0) {
-                    int d1 = i;
-                    int d2 = num / i;
-
-                    // first divisor
+            int currentSum = 0;
+            
+            // Iterate up to the square root of n
+            for (int d = 1; d * d <= n; d++) {
+                if (n % d == 0) {
+                    // d is a divisor
                     count++;
-                    sum += d1;
-
-                    // second divisor (if different)
-                    if (d1 != d2) {
+                    currentSum += d;
+                    
+                    // If d is not the square root, add its counterpart n/d
+                    if (d * d != n) {
                         count++;
-                        sum += d2;
+                        currentSum += n / d;
                     }
                 }
+                
+                // Optimization: if we already have more than 4, stop
+                if (count > 4) break;
             }
-
+            
+            // If exactly four divisors were found, add their sum to total
             if (count == 4) {
-                totalSum += sum;
+                totalSum += currentSum;
             }
         }
-
+        
         return totalSum;
     }
 }
-

@@ -9,17 +9,17 @@ class Solution {
         return ans;
     }
 
-    public void set(List<Integer> op, int[] nums, int startIndex) {
+    public void set(List<Integer> op, int[] nums, int index) {
        
-        if (startIndex == n) {
+        if (index == n) {
             ans.add(new ArrayList<>(op));
             return;
         }
 
-        op.add(nums[startIndex]);
-        set(op, nums, startIndex + 1);
+        op.add(nums[index]);
+        set(op, nums, index + 1);
 
         op.remove(op.size() - 1);
-        set(op, nums, startIndex + 1);
+        set(op, nums, index + 1);
     }
 }

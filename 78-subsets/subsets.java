@@ -1,23 +1,25 @@
 class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+    int n;
 
-    public void set(int[] nums, int index, List<Integer> curr, List<List<Integer>> res) {
-        if (index == nums.length) {
-            res.add(curr);
+    public List<List<Integer>> subsets(int[] nums) {
+        List<Integer> op = new ArrayList<>();
+        n = nums.length;
+        set(op, nums, 0);
+        return ans;
+    }
+
+    public void set(List<Integer> op, int[] nums, int startIndex) {
+       
+        if (startIndex == n) {
+            ans.add(new ArrayList<>(op));
             return;
         }
 
-    
-        List<Integer> include = new ArrayList<>(curr);
-        include.add(nums[index]);
-        set(nums, index + 1, include, res);
+        op.add(nums[startIndex]);
+        set(op, nums, startIndex + 1);
 
-     
-        set(nums, index + 1, new ArrayList<>(curr), res);
-    }
-
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        set(nums, 0, new ArrayList<>(), res);
-        return res;
+        op.remove(op.size() - 1);
+        set(op, nums, startIndex + 1);
     }
 }

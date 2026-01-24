@@ -1,25 +1,16 @@
 class Solution {
-    List<List<Integer>> Ans = new ArrayList<>();
-    int n;
-
     public List<List<Integer>> subsets(int[] nums) {
-        List<Integer> op = new ArrayList<>();
-        n = nums.length;
-        Helper(op, nums, 0);
-        return Ans;
+        List<List<Integer>> ans = new ArrayList<>();
+        helper(ans, nums, new ArrayList<Integer>(), 0);
+        return ans;
     }
 
-    public void Helper(List<Integer> op, int[] nums, int startIndex) {
-       
-        if (startIndex == n) {
-            Ans.add(new ArrayList<>(op));
-            return;
+    public void helper(List<List<Integer>> ans, int[] nums, List<Integer> sub, int index) {
+        ans.add(new ArrayList<Integer>(sub));
+        for (int i = index; i < nums.length; i++) {
+            sub.add(nums[i]);
+            helper(ans, nums, sub, i + 1);
+            sub.remove(sub.size() - 1);
         }
-
-        op.add(nums[startIndex]);
-        Helper(op, nums, startIndex + 1);
-
-        op.remove(op.size() - 1);
-        Helper(op, nums, startIndex + 1);
     }
 }
